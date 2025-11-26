@@ -1,17 +1,27 @@
-// Unió (A ∪ B)
-function union(setA, setB) {
-    return Array.from(new Set([...setA, ...setB]));
+function halmazBeolvas(str) {
+    return str.split(',').map(x => x.trim()).filter(x => x !== '');
 }
 
-// Metszet (A ∩ B)
-function intersection(setA, setB) {
-    return setA.filter(x => setB.includes(x));
+function egyesites(halmazA, halmazB) {
+    return Array.from(new Set([...halmazA, ...halmazB]));
 }
 
-// Különbség (A \ B)
-function difference(setA, setB) {
-    return setA.filter(x => !setB.includes(x));
+function metszet(halmazA, halmazB) {
+    return halmazA.filter(x => halmazB.includes(x));
 }
+
+function kulonbseg(halmazA, halmazB) {
+    return halmazA.filter(x => !halmazB.includes(x));
+}
+
+const tesztA = halmazBeolvas('1,2,3,4');
+const tesztB = halmazBeolvas('3,4,5,6');
+console.log('A:', tesztA);
+console.log('B:', tesztB);
+console.log('Unió:', egyesites(tesztA, tesztB));
+console.log('Metszet:', metszet(tesztA, tesztB));
+console.log('Különbség (A \ B):', kulonbseg(tesztA, tesztB));
+console.log('Különbség (B \ A):', kulonbseg(tesztB, tesztA));
 
 // Segédfüggvény: szövegből tömböt készít
 function parseSet(str) {
