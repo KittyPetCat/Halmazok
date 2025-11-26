@@ -47,6 +47,8 @@ window.onload = function() {
         }
         document.getElementById('result').textContent = `{ ${result.join(', ')} }`;
     });
+    // Teszt: kör rajzolása a canvasra oldal betöltésekor
+    drawcircle('MyCanvas', 150, 100, 50, 'red');
 };
 const canvas = document.getElementById('MyCanvas');
 const ctx = canvas.getContext('2d');
@@ -66,3 +68,9 @@ function drawcircle(canvasId, x, y, radius, color = 'blue') {
     ctx.stroke();
     ctx.strokeStyle = 'black';
 }
+// Eseménykezelő a gombra
+document.getElementById('calculateBtn').onclick = function() {
+        if (typeof halmazmuvelet === 'function') {
+            halmazmuvelet();
+        }
+    };
