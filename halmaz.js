@@ -30,43 +30,46 @@ function parseSet(str) {
 
 // Eseménykezelő a gombra
 window.onload = function() {
+    const canvas = document.getElementById('MyCanvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        // Két kör: kék és piros, átlapolva
+        drawCircle(ctx, 110, 100, 60, 'blue', 0.5);   // bal oldali kék kör
+        drawCircle(ctx, 190, 100, 60, 'red', 0.5);    // jobb oldali piros kör
+    }
+
     const form = document.querySelector('form');
-    if (!form) return;
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const setA = parseSet(document.getElementById('setA').value);
-        const setB = parseSet(document.getElementById('setB').value);
-        const operation = document.getElementById('operation').value;
-        let result = [];
-        if (operation === 'union') {
-            result = union(setA, setB);
-        } else if (operation === 'intersection') {
-            result = intersection(setA, setB);
-        } else if (operation === 'difference') {
-            result = difference(setA, setB);
-        }
-        document.getElementById('result').textContent = `{ ${result.join(', ')} }`;
-    });
-    // Teszt: kör rajzolása a canvasra oldal betöltésekor
-    drawcircle('MyCanvas', 150, 100, 50, 'red');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const setA = parseSet(document.getElementById('setA').value);
+            const setB = parseSet(document.getElementById('setB').value);
+            const operation = document.getElementById('operation').value;
+            let result = [];
+            if (operation === 'union') {
+                result = egyesites(setA, setB);
+            } else if (operation === 'intersection') {
+                result = metszet(setA, setB);
+            } else if (operation === 'difference') {
+                result = kulonbseg(setA, setB);
+            }
+            document.getElementById('result').textContent = `{ ${result.join(', ')} }`;
+        });
+    }
 };
-const canvas = document.getElementById('MyCanvas');
-const ctx = canvas.getContext('2d');
-let opacity = 0.5; // Átlátszóság érték (0.0 - 1.0)
 
 // Függvény: kör rajzolása egy canvas elemre
-function drawcircle(canvasId, x, y, radius, color = 'blue') {
-    const canvas = document.getElementById(canvasId);
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+function drawCircle(ctx, x, y, radius, color, opacity = 0.4) {
+    ctx.save();
     ctx.beginPath();
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
     ctx.fillStyle = color;
     ctx.globalAlpha = opacity;
     ctx.fill();
     ctx.globalAlpha = 1.0; // visszaállítás
-    ctx.stroke();
     ctx.strokeStyle = 'black';
+    ctx.stroke();
+    ctx.restore();
 }
 // Eseménykezelő a gombra
 document.getElementById('calculateBtn').onclick = function() {
