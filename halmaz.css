@@ -1,1 +1,96 @@
-/* Miau */
+body {
+    background: #f4f4f8;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background: #fff;
+    max-width: 400px;
+    margin: 40px auto;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 32px 24px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 1.6rem;
+    margin-bottom: 18px;
+    font-weight: 600;
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 8px 10px;
+    margin: 8px 0 16px 0;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #f9f9fb;
+    box-sizing: border-box;
+}
+
+button, input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background: #4f46e5;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 18px;
+    transition: background 0.2s;
+}
+button:hover, input[type="submit"]:hover {
+    background: #3730a3;
+}
+
+.result-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 18px;
+    margin-bottom: 8px;
+}
+
+#result {
+    font-size: 1.1rem;
+    color: #222;
+    margin-bottom: 18px;
+}
+
+.venn-diagram {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 18px auto;
+    height: 140px;
+}
+
+.circle {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    position: absolute;
+    opacity: 0.5;
+}
+
+.circle.a {
+    background: #e57373;
+    left: 50px;
+}
+.circle.b {
+    background: #3f51b5;
+    left: 110px;
+}
+
+.venn-labels {
+    position: relative;
+    top: 100px;
+    text-align: center;
+    font-size: 1rem;
+    color: #43a047;
+}

@@ -73,6 +73,8 @@ function drawVennDiagram(onlyA, onlyB, intersection) {
     ctx.fillStyle = 'black';
     // Bal kör (A)
     ctx.fillText('A', 70, 80);
+    // Halmaz elemek (sárgák)
+    ctx.fillStyle = 'black';
     // Jobb kör (B)
     ctx.fillText('B', 210, 80);
     // Bal kör (A\B)
