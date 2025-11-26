@@ -9,6 +9,23 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h2>Halmazműveletek</h2>
+
+    <!-- Halmaz A -->
+    <label>Halmaz A (elemek vesszővel):</label>
+    <input type="text" id="setA" placeholder="1,2,3,4">
+
+    <!-- Halmaz B -->
+    <label>Halmaz B (elemek vesszővel):</label>
+    <input type="text" id="setB" placeholder="3,4,5,6">
+    <!-- Művelet választás -->
+    <label>Műveletet:</label>
+    <select id="operation">
+        <option value="union">Unió (A ∪ B)</option>
+        <option value="intersection">Metszet (A ∩ B)</option>
+        <option value="differenceAB">Különbség (A – B)</option>
+        <option value="differenceBA">Különbség (B – A)</option>
+    </select>
+    <button onclick="calculate()">Számolás</button>
 </body>
 </html>
