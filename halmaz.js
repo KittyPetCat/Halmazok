@@ -47,4 +47,30 @@ window.onload = function() {
         }
         document.getElementById('result').textContent = `{ ${result.join(', ')} }`;
     });
+    // Teszt: kör rajzolása a canvasra oldal betöltésekor
+    drawcircle('MyCanvas', 150, 100, 50, 'red');
 };
+const canvas = document.getElementById('MyCanvas');
+const ctx = canvas.getContext('2d');
+let opacity = 0.5; // Átlátszóság érték (0.0 - 1.0)
+
+// Függvény: kör rajzolása egy canvas elemre
+function drawcircle(canvasId, x, y, radius, color = 'blue') {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    ctx.fillStyle = color;
+    ctx.globalAlpha = opacity;
+    ctx.fill();
+    ctx.globalAlpha = 1.0; // visszaállítás
+    ctx.stroke();
+    ctx.strokeStyle = 'black';
+}
+// Eseménykezelő a gombra
+document.getElementById('calculateBtn').onclick = function() {
+        if (typeof halmazmuvelet === 'function') {
+            halmazmuvelet();
+        }
+    };

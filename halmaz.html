@@ -18,6 +18,7 @@
     <!-- Halmaz B -->
     <label>Halmaz B (elemek vesszővel):</label>
     <input type="text" id="setB" placeholder="3,4,5,6">
+
     <!-- Művelet választás -->
     <label>Műveletet:</label>
     <select id="operation">
@@ -26,6 +27,12 @@
         <option value="differenceAB">Különbség (A – B)</option>
         <option value="differenceBA">Különbség (B – A)</option>
     </select>
-    <button onclick="calculate()">Számolás</button>
+    
+    <button id="calculateBtn">Számolás</button>
+    <h3>Eredmény:</h3>
+    <div class="eredmeny" id="ered"></div>
+    
+    <canvas id="MyCanvas" width="300" height="200" style="border:1px solid #000; margin-top:20px;"></canvas>
+    
 </body>
 </html>
