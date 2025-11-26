@@ -30,13 +30,19 @@ function parseSet(str) {
 
 // Eseménykezelő a gombra
 window.onload = function() {
-    drawVennDiagram();
     const form = document.querySelector('form');
     if (form) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             const setA = parseSet(document.getElementById('setA').value);
             const setB = parseSet(document.getElementById('setB').value);
+            // Számítsuk ki a részeket
+            const onlyA = setA.filter(x => !setB.includes(x));
+            const onlyB = setB.filter(x => !setA.includes(x));
+            const intersection = setA.filter(x => setB.includes(x));
+            // Rajzolás
+            drawVennDiagram(onlyA, onlyB, intersection);
+            // Szöveges eredmény
             const operation = document.getElementById('operation').value;
             let result = [];
             if (operation === 'union') {
@@ -49,40 +55,32 @@ window.onload = function() {
                 result = kulonbseg(setB, setA);
             }
             document.getElementById('ered').textContent = `{ ${result.join(', ')} }`;
-            // Metszet, unió, különbség: mindig írjuk ki a metszetbe azokat az elemeket, amelyek mindkét halmazban benne vannak
-            // Unió: minden elem, Metszet: csak közös, Különbség: csak az egyikben
-            // A metszet mindig helyesen jelenjen meg a középső részben
-            let intersection = metszet(setA, setB);
-            if (intersection.length && (operation === 'union' || operation === 'intersection')) {
-                // Metszet elemei mindig középre
-                drawVennDiagram(setA, setB, 'intersection', intersection);
-            } else {
-                drawVennDiagram(setA, setB, operation, result);
-            }
         });
     }
+    // Alapértelmezett üres Venn-diagram
+    drawVennDiagram([], [], []);
 };
 
-function drawVennDiagram(setA = [], setB = [], operation = '', result = []) {
+function drawVennDiagram(onlyA, onlyB, intersection) {
     const canvas = document.getElementById('MyCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // Körök
-    drawCircle(ctx, 110, 125, 60, 'blue', 0.4);
-    drawCircle(ctx, 190, 125, 60, 'red', 0.4);
-    // Elemszámok vagy elemek kiírása
+    drawCircle(ctx, 110, 100, 60, 'blue', 0.5);
+    drawCircle(ctx, 190, 100, 60, 'red', 0.5);
     ctx.font = '16px Arial';
     ctx.fillStyle = 'black';
-    // Halmaz A csak saját elemei
-    const onlyA = setA.filter(x => !setB.includes(x));
-    ctx.fillText(onlyA.length ? onlyA.join(', ') : '', 70, 125);
-    // Halmaz B csak saját elemei
-    const onlyB = setB.filter(x => !setA.includes(x));
-    ctx.fillText(onlyB.length ? onlyB.join(', ') : '', 210, 125);
-    // Metszet elemei (közös rész)
-    const intersection = setA.filter(x => setB.includes(x));
-    ctx.fillText(intersection.length ? intersection.join(', ') : '', 140, 125);
+    // Bal kör (A)
+    ctx.fillText('A', 70, 80);
+    // Jobb kör (B)
+    ctx.fillText('B', 210, 80);
+    // Bal kör (A\B)
+    if (onlyA.length) ctx.fillText(onlyA.join(', '), 70, 100);
+    // Jobb kör (B\A)
+    if (onlyB.length) ctx.fillText(onlyB.join(', '), 210, 100);
+    // Metszet
+    if (intersection.length) ctx.fillText(intersection.join(', '), 140, 100);
 }
 
 // Függvény: kör rajzolása egy canvas elemre
@@ -94,8 +92,6 @@ function drawCircle(ctx, x, y, radius, color, opacity = 0.4) {
     ctx.globalAlpha = opacity;
     ctx.fill();
     ctx.globalAlpha = 1.0; // visszaállítás
-    ctx.strokeStyle = 'black';
-    ctx.stroke();
     ctx.restore();
 }
 // Eseménykezelő a gombra
